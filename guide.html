@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Hướng Dẫn - L-TOOL</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #00aaff;
+            --primary-yellow: #ffaa00;
+            --primary-orange: #ff7700;
+            --bg-dark: #0a0f1a;
+            --glass-bg: rgba(255, 255, 255, 0.02);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --shadow-sm: 0 4px 12px rgba(0, 170, 255, 0.1);
+            --radius-lg: 24px;
+            --radius-md: 16px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0f1a;
+            color: white;
+            line-height: 1.5;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .page-header {
+            padding: 30px 0 20px;
+        }
+
+        .header-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            border-radius: 40px;
+            padding: 10px 20px;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: border-color 0.2s;
+        }
+
+        .back-btn:hover {
+            border-color: var(--primary-blue);
+        }
+
+        .page-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-yellow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+            flex: 1;
+        }
+
+        .guide-container {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--glass-border);
+            overflow: hidden;
+            margin: 20px 0 40px;
+        }
+
+        .guide-intro {
+            padding: 40px 30px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .guide-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+        }
+
+        .guide-subtitle {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .device-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            padding: 20px 30px 40px;
+        }
+
+        .device-card {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: var(--radius-md);
+            padding: 30px 25px;
+            border: 1px solid var(--glass-border);
+            cursor: pointer;
+            transition: transform 0.2s, border-color 0.2s;
+            text-align: center;
+        }
+
+        .device-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary-yellow);
+        }
+
+        .device-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: rgba(0, 170, 255, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            color: var(--primary-blue);
+            font-size: 2rem;
+        }
+
+        .device-name {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: white;
+        }
+
+        .device-desc {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .guide-section {
+            display: none;
+            padding: 0 30px 40px;
+        }
+
+        .guide-section.active {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; } to { opacity: 1; }
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .section-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--primary-yellow);
+        }
+
+        .close-guide {
+            background: var(--primary-orange);
+            border: none;
+            border-radius: 40px;
+            padding: 10px 22px;
+            color: #0a0f1a;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+
+        .step-container {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--glass-border);
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .step-header {
+            background: rgba(0, 170, 255, 0.05);
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .step-number {
+            background: #0a0f1a;
+            color: var(--primary-blue);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            border: 1px solid rgba(0, 170, 255, 0.3);
+        }
+
+        .step-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: white;
+        }
+
+        .step-content {
+            padding: 25px;
+        }
+
+        .step-description {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 20px;
+        }
+
+        .download-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(0, 170, 255, 0.1);
+            border: 1px solid rgba(0, 170, 255, 0.3);
+            color: var(--primary-blue);
+            padding: 12px 28px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+
+        .download-link:hover {
+            background: rgba(0, 170, 255, 0.2);
+        }
+
+        .code-container {
+            background: #111827;
+            border-radius: var(--radius-md);
+            margin: 15px 0;
+        }
+
+        .code-header {
+            background: #1e293b;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: var(--radius-md) var(--radius-md) 0 0;
+        }
+
+        .code-label {
+            color: var(--primary-blue);
+            font-size: 0.9rem;
+        }
+
+        .copy-btn {
+            background: none;
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            padding: 6px 15px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        .copy-btn:hover {
+            border-color: var(--primary-yellow);
+        }
+
+        .code-block {
+            padding: 20px;
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: #e2e8f0;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+
+        .note-box {
+            background: rgba(255, 170, 0, 0.05);
+            border-left: 4px solid var(--primary-yellow);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .note-title {
+            color: var(--primary-yellow);
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        footer {
+            background: rgba(0,0,0,0.5);
+            padding: 30px 0 20px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        .footer-link {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-size: 0.9rem;
+            padding: 5px 12px;
+            background: rgba(0,170,255,0.05);
+            border-radius: 30px;
+        }
+
+        .footer-link:hover {
+            color: var(--primary-yellow);
+        }
+
+        @media (max-width: 600px) {
+            .page-title { font-size: 1.6rem; }
+            .guide-title { font-size: 1.8rem; }
+            .device-selector { padding: 10px 20px 30px; }
+            .device-card { padding: 20px; }
+            .section-title { font-size: 1.3rem; }
+            .step-header { padding: 15px; }
+            .step-content { padding: 20px; }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="page-header">
+            <nav class="header-nav">
+                <button class="back-btn" onclick="goBack()"><i class="fas fa-arrow-left"></i> Quay lại</button>
+                <h1 class="page-title">Hướng Dẫn</h1>
+                <div style="width:40px;"></div> <!-- cân bằng -->
+            </nav>
+        </header>
+
+        <main class="main-content">
+            <div class="guide-container">
+                <section class="guide-intro">
+                    
+                    <h2 class="guide-title">Hướng Dẫn Cài Đặt</h2>
+                    <p class="guide-subtitle">Chọn thiết bị bạn đang sử dụng để xem hướng dẫn chi tiết.</p>
+                </section>
+
+                <div class="device-selector" id="deviceSelector">
+                    <div class="device-card" onclick="showGuide('phone')">
+                        <div class="device-icon"><i class="fas fa-mobile-alt"></i></div>
+                        <h3 class="device-name">Điện Thoại</h3>
+                        <p class="device-desc">Hướng dẫn cài đặt trên Android với Termux</p>
+                    </div>
+                    <div class="device-card" onclick="showGuide('pc')">
+                        <div class="device-icon"><i class="fas fa-desktop"></i></div>
+                        <h3 class="device-name">Máy Tính</h3>
+                        <p class="device-desc">Hướng dẫn cài đặt trên Windows PC</p>
+                    </div>
+                </div>
+
+                <!-- Hướng dẫn cho điện thoại -->
+                <div class="guide-section" id="phoneGuide">
+                    <div class="section-header">
+                        <h3 class="section-title"><i class="fas fa-mobile-alt" style="color:var(--primary-blue);"></i> Điện thoại</h3>
+                        <button class="close-guide" onclick="closeGuide()"><i class="fas fa-times"></i> Đóng</button>
+                    </div>
+                    <!-- Bước 1 -->
+                    <div class="step-container">...</div>
+                    <!-- Bước 2, 3  -->
+                </div>
+
+                <!-- Hướng dẫn cho máy tính -->
+                <div class="guide-section" id="pcGuide">
+                    <div class="section-header">
+                        <h3 class="section-title"><i class="fas fa-desktop" style="color:var(--primary-blue);"></i> Máy tính</h3>
+                        <button class="close-guide" onclick="closeGuide()"><i class="fas fa-times"></i> Đóng</button>
+                    </div>
+                   
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 L-TOOL. Phát triển bởi Luân</p>
+            <div class="footer-links">
+                <a href="index.html" class="footer-link">Trang chủ</a>
+                <a href="guide.html" class="footer-link">Hướng dẫn</a>
+                <a href="info.html" class="footer-link">Thông tin</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function showGuide(device) {
+            document.querySelectorAll('.guide-section').forEach(s => s.classList.remove('active'));
+            document.getElementById(device + 'Guide').classList.add('active');
+            document.getElementById('deviceSelector').style.display = 'none';
+            setTimeout(() => {
+                document.getElementById(device + 'Guide').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
+        }
+
+        function closeGuide() {
+            document.querySelectorAll('.guide-section').forEach(s => s.classList.remove('active'));
+            document.getElementById('deviceSelector').style.display = 'grid';
+            setTimeout(() => {
+                document.getElementById('deviceSelector').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Đã sao chép!');
+            }).catch(() => alert('Không thể sao chép'));
+        }
+
+        function goBack() {
+            document.body.style.opacity = '0.9';
+            document.body.style.transform = 'scale(0.98)';
+            document.body.style.transition = 'all 0.2s ease';
+            setTimeout(() => window.history.back(), 150);
+        }
+    </script>
+</body>
+</html>
