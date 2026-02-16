@@ -58,6 +58,7 @@
             align-items: center;
             gap: 8px;
             transition: border-color 0.2s;
+            font-size: 0.95rem;
         }
 
         .back-btn:hover {
@@ -74,6 +75,18 @@
             background-clip: text;
             text-align: center;
             flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .avatar-title {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--primary-blue);
         }
 
         .guide-container {
@@ -353,6 +366,7 @@
 
         @media (max-width: 600px) {
             .page-title { font-size: 1.6rem; }
+            .avatar-title { width: 36px; height: 36px; }
             .guide-title { font-size: 1.8rem; }
             .device-selector { padding: 10px 20px 30px; }
             .device-card { padding: 20px; }
@@ -368,29 +382,31 @@
         <header class="page-header">
             <nav class="header-nav">
                 <button class="back-btn" onclick="goBack()"><i class="fas fa-arrow-left"></i> Quay lại</button>
-                <h1 class="page-title">Hướng Dẫn</h1>
-                <div style="width:40px;"></div> <!-- cân bằng -->
+                <h1 class="page-title">
+                    <img src="IMG_1770991960734_1770992011702.jpg" alt="L-TOOL" class="avatar-title">
+                    Hướng Dẫn
+                </h1>
+                <div style="width:40px;"></div> <!-- giữ cân bằng -->
             </nav>
         </header>
 
         <main class="main-content">
             <div class="guide-container">
                 <section class="guide-intro">
-                    
                     <h2 class="guide-title">Hướng Dẫn Cài Đặt</h2>
-                    <p class="guide-subtitle">Chọn thiết bị bạn đang sử dụng để xem hướng dẫn chi tiết.</p>
+                    <p class="guide-subtitle">Chọn thiết bị bạn đang sử dụng để xem hướng dẫn chi tiết và phù hợp nhất.</p>
                 </section>
 
                 <div class="device-selector" id="deviceSelector">
                     <div class="device-card" onclick="showGuide('phone')">
                         <div class="device-icon"><i class="fas fa-mobile-alt"></i></div>
                         <h3 class="device-name">Điện Thoại</h3>
-                        <p class="device-desc">Hướng dẫn cài đặt trên Android với Termux</p>
+                        <p class="device-desc">Hướng dẫn cài đặt chi tiết trên Android với Termux</p>
                     </div>
                     <div class="device-card" onclick="showGuide('pc')">
                         <div class="device-icon"><i class="fas fa-desktop"></i></div>
                         <h3 class="device-name">Máy Tính</h3>
-                        <p class="device-desc">Hướng dẫn cài đặt trên Windows PC</p>
+                        <p class="device-desc">Hướng dẫn cài đặt đầy đủ trên Windows PC</p>
                     </div>
                 </div>
 
@@ -400,9 +416,73 @@
                         <h3 class="section-title"><i class="fas fa-mobile-alt" style="color:var(--primary-blue);"></i> Điện thoại</h3>
                         <button class="close-guide" onclick="closeGuide()"><i class="fas fa-times"></i> Đóng</button>
                     </div>
+
                     <!-- Bước 1 -->
-                    <div class="step-container">...</div>
-                    <!-- Bước 2, 3  -->
+                    <div class="step-container">
+                        <div class="step-header">
+                            <div class="step-number">1</div>
+                            <h4 class="step-title">Cài Đặt Termux</h4>
+                        </div>
+                        <div class="step-content">
+                            <p class="step-description">Tải và cài đặt Termux từ link dưới đây (ứng dụng giả lập terminal cho Android).</p>
+                            <a href="https://f-droid.org/repo/com.termux_1022.apk" target="_blank" class="download-link">
+                                <i class="fas fa-download"></i> Tải Termux tại đây
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Bước 2 -->
+                    <div class="step-container">
+                        <div class="step-header">
+                            <div class="step-number">2</div>
+                            <h4 class="step-title">Cài Đặt Môi Trường</h4>
+                        </div>
+                        <div class="step-content">
+                            <p class="step-description">Mở Termux và chạy lệnh sau để cài đặt môi trường:</p>
+                            <div class="code-container">
+                                <div class="code-header">
+                                    <span class="code-label">Lệnh cài đặt</span>
+                                    <button class="copy-btn" onclick="copyToClipboard('pkg update && pkg upgrade -y\npkg install python\npip install requests colorama rich pycurl websocket-client\ntermux-setup-storage')">
+                                        <i class="fas fa-copy"></i> Sao chép
+                                    </button>
+                                </div>
+                                <div class="code-block">
+pkg update && pkg upgrade -y
+pkg install python
+pip install requests colorama rich pycurl websocket-client
+termux-setup-storage
+                                </div>
+                            </div>
+                            <div class="note-box">
+                                <div class="note-title"><i class="fas fa-exclamation-circle"></i> Lưu ý</div>
+                                <p>Nếu có xác nhận, bấm <strong>y</strong> rồi Enter.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bước 3 -->
+                    <div class="step-container">
+                        <div class="step-header">
+                            <div class="step-number">3</div>
+                            <h4 class="step-title">Chạy Tool</h4>
+                        </div>
+                        <div class="step-content">
+                            <p class="step-description">Sau khi cài đặt, chạy lệnh:</p>
+                            <div class="code-container">
+                                <div class="code-header">
+                                    <span class="code-label">Lệnh chạy tool</span>
+                                    <button class="copy-btn" onclick="copyToClipboard('cd /sdcard/download\npython Ltool.py')">
+                                        <i class="fas fa-copy"></i> Sao chép
+                                    </button>
+                                </div>
+                                <div class="code-block">
+cd /sdcard/download
+python Ltool.py
+                                </div>
+                            </div>
+                            <p class="step-description" style="margin-top: 20px; color: var(--primary-yellow); font-weight: 500;">🎉 Chúc mừng! Bạn đã cài đặt thành công.</p>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Hướng dẫn cho máy tính -->
@@ -411,7 +491,73 @@
                         <h3 class="section-title"><i class="fas fa-desktop" style="color:var(--primary-blue);"></i> Máy tính</h3>
                         <button class="close-guide" onclick="closeGuide()"><i class="fas fa-times"></i> Đóng</button>
                     </div>
-                   
+
+                    <!-- Bước 1 -->
+                    <div class="step-container">
+                        <div class="step-header">
+                            <div class="step-number">1</div>
+                            <h4 class="step-title">Cài Đặt Python</h4>
+                        </div>
+                        <div class="step-content">
+                            <p class="step-description">Tải Python 3.12.0 và cài đặt, nhớ tick chọn "Add Python to PATH".</p>
+                            <a href="https://www.python.org/ftp/python/3.12.0/python-3.12.0-amd64.exe" target="_blank" class="download-link">
+                                <i class="fas fa-download"></i> Tải Python
+                            </a>
+                            <div class="note-box">
+                                <div class="note-title"><i class="fas fa-exclamation-circle"></i> Quan trọng</div>
+                                <p>Phải tick chọn "Add python.exe to PATH".</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bước 2 -->
+                    <div class="step-container">
+                        <div class="step-header">
+                            <div class="step-number">2</div>
+                            <h4 class="step-title">Cài Đặt Thư Viện</h4>
+                        </div>
+                        <div class="step-content">
+                            <p class="step-description">Mở CMD và chạy lệnh:</p>
+                            <div class="code-container">
+                                <div class="code-header">
+                                    <span class="code-label">Lệnh cài thư viện</span>
+                                    <button class="copy-btn" onclick="copyToClipboard('pip install requests colorama rich websocket-client')">
+                                        <i class="fas fa-copy"></i> Sao chép
+                                    </button>
+                                </div>
+                                <div class="code-block">
+pip install requests colorama rich websocket-client
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bước 3 -->
+                    <div class="step-container">
+                        <div class="step-header">
+                            <div class="step-number">3</div>
+                            <h4 class="step-title">Chạy Tool</h4>
+                        </div>
+                        <div class="step-content">
+                            <p class="step-description">Mở CMD và chạy (thay tên user của bạn):</p>
+                            <div class="code-container">
+                                <div class="code-header">
+                                    <span class="code-label">Lệnh chạy tool</span>
+                                    <button class="copy-btn" onclick="copyToClipboard('python \"c:/users/(tên users)/downloads/Ltool.py\"')">
+                                        <i class="fas fa-copy"></i> Sao chép
+                                    </button>
+                                </div>
+                                <div class="code-block">
+python "c:/users/(tên users)/downloads/Ltool.py"
+                                </div>
+                            </div>
+                            <div class="note-box">
+                                <div class="note-title"><i class="fas fa-info-circle"></i> Hướng dẫn</div>
+                                <p>Thay (tên users) bằng tên thư mục user của bạn.</p>
+                            </div>
+                            <p class="step-description" style="margin-top: 20px; color: var(--primary-yellow); font-weight: 500;">🎉 Chúc mừng! Cài đặt thành công.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </main>
